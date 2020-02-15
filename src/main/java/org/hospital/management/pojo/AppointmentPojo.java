@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AppointmentPojo {
     String appointmentId;
+    String userId;
     String userName;
     String cliName;
+    String staffId;
     String staffName;
     String appointmentTime;
 }
