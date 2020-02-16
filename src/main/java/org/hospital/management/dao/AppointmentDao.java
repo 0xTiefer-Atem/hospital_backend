@@ -22,7 +22,8 @@ public interface AppointmentDao {
             "clinicInfo cI" +
             " where ap.userId = uI.userId" +
             " and ap.staffId = sI.staffId" +
-            " and ap.staffId like concat(cI.cliId,'%')")
+            " and ap.staffId like concat(cI.cliId,'%')" +
+            " and ap.status = 'WAIT'")
     List<AppointmentPojo> appointmentListInit();
 
 
@@ -40,6 +41,7 @@ public interface AppointmentDao {
             " where ap.userId = uI.userId" +
             " and ap.staffId = sI.staffId" +
             " and appointmentId = #{id}" +
-            " and ap.staffId like concat(cI.cliId,'%')")
+            " and ap.staffId like concat(cI.cliId,'%')" +
+            " and ap.status = 'WAIT'")
     List<AppointmentPojo> searchAppointmentById(String id);
 }
