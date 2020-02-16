@@ -22,6 +22,8 @@ public class RegisterController {
     @Autowired
     RegisterDao registerDao;
 
+
+    //进行挂号处理
     @RequestMapping(value = "/registerById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseV2 registerById(HttpServletRequest request){
@@ -38,10 +40,14 @@ public class RegisterController {
 
         try{
             registerDao.insertRegister(registerPojo);
+            registerDao.upDateAppointmentStatus(registerPojo.getAppointmentId());
         }catch (Exception e){
             System.out.println(e);
             return ResponseHelper.create(500, "挂号操作失败");
         }
         return ResponseHelper.create(200,"挂号操作失败");
     }
+
+
+    //将挂完号的病人
 }
