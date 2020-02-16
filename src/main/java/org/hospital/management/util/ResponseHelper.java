@@ -26,8 +26,8 @@ public class ResponseHelper {
         return create((Object)null, code, "请求成功");
     }
 
-    public static ResponseV2 create() {
-        return create((Object)null, 200, "请求成功");
+    public static ResponseV2 create(int code, String s) {
+        return create((Object)null, 200, s);
     }
 
 
