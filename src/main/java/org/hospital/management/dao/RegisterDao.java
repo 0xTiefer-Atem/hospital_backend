@@ -19,17 +19,18 @@ public interface RegisterDao {
     void upDateAppointmentStatus(String id);
 
     @Select("select distinct  rI.appointmentId, rI.registerId, rI.userId, uI.userName," +
-            "                rI.staffId, sI.staffName, cI.cliName, rI.createTime" +
+            "rI.staffId, sI.staffName, cI.cliName, rI.createTime" +
             " from registerInfo rI," +
-            "     userInfo uI," +
-            "     staffInfo sI," +
-            "     clinicInfo cI" +
+            "userInfo uI," +
+            "staffInfo sI," +
+            "clinicInfo cI" +
             " where rI.userId = uI.userId" +
             "  and rI.staffId = sI.staffId" +
             "  and rI.staffId = #{staffId}" +
             "  and rI.status = 'WAIT'" +
             "  and rI.staffId like concat(cI.cliId,'%')" +
-            "  and rI.createTime between #{startTime} and #{endTime}")
+            "  and rI.createTime between #{startTime} and #{endTime}" +
+            "  order by rI.createTime asc")
     List<RegisterPojo> registerListInit(String staffId, String startTime, String endTime);
 
 
