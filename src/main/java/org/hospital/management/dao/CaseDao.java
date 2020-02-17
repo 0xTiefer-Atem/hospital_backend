@@ -1,7 +1,9 @@
 package org.hospital.management.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.hospital.management.pojo.CasePojo;
 import org.hospital.management.pojo.TreatmentQueuePojo;
 
 import java.util.List;
@@ -24,4 +26,10 @@ public interface CaseDao {
             "  and rI.createTime between #{startTime} and #{endTime}" +
             "  order by rI.createTime asc")
     List<TreatmentQueuePojo> treatmentQueueInfoListInit(String staffId, String startTime, String endTime);
+
+    @Insert("insert into caseInfo(caseId, registerId, userId, userIllness, " +
+            "staffId, medicList, totalPrice, createTime) " +
+            "values(#{caseId}, #{registerId}, #{userId}, #{userIllness}, " +
+            "#{staffId}, #{medicList}, #{totalPrice}, #{createTime})")
+    void insertCaseInfo(CasePojo casePojo);
 }
