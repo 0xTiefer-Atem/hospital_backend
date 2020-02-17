@@ -27,7 +27,13 @@ public interface RegisterDao {
             " where rI.userId = uI.userId" +
             "  and rI.staffId = sI.staffId" +
             "  and rI.staffId = #{staffId}" +
+            "  and rI.status = 'WAIT'" +
             "  and rI.staffId like concat(cI.cliId,'%')" +
             "  and rI.createTime between #{startTime} and #{endTime}")
     List<RegisterPojo> registerListInit(String staffId, String startTime, String endTime);
+
+
+    @Update("update registerInfo set status = 'SUCCESS' where registerId = #{id}")
+    void upDateRegisterStatus(String id);
+
 }
