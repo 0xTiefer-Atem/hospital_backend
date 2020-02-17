@@ -1,7 +1,7 @@
 package org.hospital.management.controller;
 
 import org.hospital.management.dao.CaseDao;
-import org.hospital.management.pojo.CasePojo;
+import org.hospital.management.pojo.TreatmentQueuePojo;
 import org.hospital.management.util.ResponseHelper;
 import org.hospital.management.util.ResponseV2;
 import org.hospital.management.util.TimeOpt;
@@ -23,15 +23,15 @@ public class CaseController {
     @Autowired
     CaseDao caseDao;
 
-    @RequestMapping(value = "/caseQueueInfoListInit", method = RequestMethod.POST)
+    @RequestMapping(value = "/treatmentQueueInfoListInit", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 caseQueueInfoListInit(HttpServletRequest request) {
+    public ResponseV2 treatmentQueueInfoListInit(HttpServletRequest request) {
         String staffId = request.getParameter("staffId");
         String startTime = TimeOpt.getCurrentTime().split(" ")[0];
         String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
         System.out.println(staffId + "   " + startTime + "   " + endTime);
         try {
-            List<CasePojo> caseQueueInfoList = caseDao.caseQueueInfoListInit(staffId, startTime, endTime);
+            List<TreatmentQueuePojo> caseQueueInfoList = caseDao.treatmentQueueInfoListInit(staffId, startTime, endTime);
             return ResponseHelper.create(caseQueueInfoList, 200, "就诊排队列表信息查询成功!");
         }catch (Exception e) {
             e.printStackTrace();

@@ -2,7 +2,7 @@ package org.hospital.management.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.hospital.management.pojo.CasePojo;
+import org.hospital.management.pojo.TreatmentQueuePojo;
 
 import java.util.List;
 
@@ -23,5 +23,5 @@ public interface CaseDao {
             "  and rI.staffId like concat(cI.cliId,'%')" +
             "  and rI.createTime between #{startTime} and #{endTime}" +
             "  order by rI.createTime asc")
-    List<CasePojo> caseQueueInfoListInit(String staffId,String startTime, String endTime);
+    List<TreatmentQueuePojo> treatmentQueueInfoListInit(String staffId, String startTime, String endTime);
 }

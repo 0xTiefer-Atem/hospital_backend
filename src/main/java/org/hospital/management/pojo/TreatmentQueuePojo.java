@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CasePojo {
+public class TreatmentQueuePojo {
     private String registerId;
     private String userId;
     private String userName;
