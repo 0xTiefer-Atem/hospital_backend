@@ -14,16 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
-@RequestMapping(value = "/home/register")
+@RequestMapping(value = "/home/queue")
 @CrossOrigin
 public class RegisterController {
     @Autowired
     RegisterDao registerDao;
 
 
-    //进行挂号处理
+    //预约->挂号处理
     @RequestMapping(value = "/registerById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseV2 registerById(HttpServletRequest request){
@@ -45,9 +46,27 @@ public class RegisterController {
             System.out.println(e);
             return ResponseHelper.create(500, "挂号操作失败");
         }
-        return ResponseHelper.create(200,"挂号操作失败");
+        return ResponseHelper.create(200,"挂号操作成功");
     }
 
 
-    //将挂完号的病人
+
+
+    @RequestMapping(value = "/registerListInit", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseV2 registerListInit(HttpServletRequest request){
+        String staffId = request.getParameter("staffId");
+        String startTime = TimeOpt.getCurrentTime().split(" ")[0];
+        String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
+        System.out.println(staffId + "   " + startTime + "   " + endTime);
+        try {
+            List<RegisterPojo> registerPojoList = registerDao.registerListInit(staffId, startTime, endTime);
+            return ResponseHelper.create(registerPojoList,200,"挂号队列初始化查询成功");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseHelper.create(500,"挂号队列初始化查询失败");
+        }
+
+    }
+
 }
