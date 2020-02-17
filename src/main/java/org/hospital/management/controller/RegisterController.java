@@ -8,10 +8,7 @@ import org.hospital.management.util.ResponseV2;
 import org.hospital.management.util.TimeOpt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -51,7 +48,7 @@ public class RegisterController {
 
 
 
-
+    //初始化挂号队列
     @RequestMapping(value = "/registerListInit", method = RequestMethod.POST)
     @ResponseBody
     public ResponseV2 registerListInit(HttpServletRequest request){
@@ -66,7 +63,22 @@ public class RegisterController {
             System.out.println(e.getMessage());
             return ResponseHelper.create(500,"挂号队列初始化查询失败");
         }
-
     }
+
+    //挂号成功 -> 修改状态 -> 等待就诊
+    @RequestMapping(value = "/treatmentById", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseV2 treatmentById(HttpServletRequest request) {
+        String registerId = request.getParameter("registerId");
+        System.out.println(registerId);
+        try {
+            registerDao.upDateRegisterStatus(registerId);
+            return ResponseHelper.create(200,"就诊排队成功");
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseHelper.create(500,"就诊排队失败");
+        }
+    }
+
 
 }
