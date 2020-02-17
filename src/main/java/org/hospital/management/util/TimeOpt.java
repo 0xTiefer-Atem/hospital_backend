@@ -70,7 +70,7 @@ public class TimeOpt {
     }
 
 
-    public static int moringOrAfterNoon(String date) {
+    public static int morningOrAfterNoon(String date) {
         try {
             Date date1 = sdf.parse(date);
             int hour = date1.getHours();
