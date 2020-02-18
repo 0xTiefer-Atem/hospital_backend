@@ -23,8 +23,9 @@ public interface AppointmentDao {
             " where ap.userId = uI.userId" +
             " and ap.staffId = sI.staffId" +
             " and ap.staffId like concat(cI.cliId,'%')" +
+            " and ap.appointmentTime between #{startTime} and #{endTime}"+
             " and ap.status = 'WAIT'")
-    List<AppointmentPojo> appointmentListInit();
+    List<AppointmentPojo> appointmentListInit(String startTime, String endTime);
 
 
     @Select("select distinct ap.appointmentId," +
