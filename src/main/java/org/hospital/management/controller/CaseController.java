@@ -11,13 +11,11 @@ import org.hospital.management.util.ResponseV2;
 import org.hospital.management.util.TimeOpt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -29,8 +27,8 @@ public class CaseController {
 
     @RequestMapping(value = "/treatmentQueueInfoListInit", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 treatmentQueueInfoListInit(HttpServletRequest request) {
-        String staffId = request.getParameter("staffId");
+    public ResponseV2 treatmentQueueInfoListInit(@RequestBody Map paraMap) {
+        String staffId = (String) paraMap.get("staffId");
         String startTime = TimeOpt.getCurrentTime().split(" ")[0];
         String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
         System.out.println(staffId + "   " + startTime + "   " + endTime);
@@ -45,8 +43,8 @@ public class CaseController {
 
     @RequestMapping(value = "/insertCaseInfo", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 insertCaseInfo(HttpServletRequest request) {
-        String caseData = request.getParameter("caseData");
+    public ResponseV2 insertCaseInfo(@RequestBody Map paraMap) {
+        String caseData = (String) paraMap.get("caseData");
         JSONObject jsonObject = JSON.parseObject(caseData);
         System.out.println(jsonObject.toJSONString());
         CasePojo casePojo = new CasePojo();
