@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/home/queue")
@@ -24,17 +25,18 @@ public class RegisterController {
     //预约->挂号处理
     @RequestMapping(value = "/registerById", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 registerById(HttpServletRequest request){
-        String appointmentId = request.getParameter("appointmentId");
-        String staffId = request.getParameter("staffId");
-        String userId = request.getParameter("userId");
+    public ResponseV2 registerById(@RequestBody Map paraMap){
+        System.out.println(paraMap);
+        String appointmentId = (String) paraMap.get("appointmentId");
+        String staffId = (String) paraMap.get("staffId");
+        String userId = (String) paraMap.get("userId");
         RegisterPojo registerPojo = new RegisterPojo();
-
         registerPojo.setRegisterId(GetUUID.getUUID());
         registerPojo.setAppointmentId(appointmentId);
         registerPojo.setStaffId(staffId);
         registerPojo.setUserId(userId);
         registerPojo.setCreateTime(TimeOpt.getCurrentTime());
+        System.out.println(registerPojo.toString());
 
         try{
             registerDao.insertRegister(registerPojo);
@@ -51,8 +53,8 @@ public class RegisterController {
     //初始化挂号队列
     @RequestMapping(value = "/registerListInit", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 registerListInit(HttpServletRequest request){
-        String staffId = request.getParameter("staffId");
+    public ResponseV2 registerListInit(@RequestBody Map paraMap){
+        String staffId = (String) paraMap.get("staffId");
         String startTime = TimeOpt.getCurrentTime().split(" ")[0];
         String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
         System.out.println(staffId + "   " + startTime + "   " + endTime);
@@ -68,8 +70,8 @@ public class RegisterController {
     //挂号成功 -> 修改状态 -> 等待就诊
     @RequestMapping(value = "/treatmentById", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 treatmentById(HttpServletRequest request) {
-        String registerId = request.getParameter("registerId");
+    public ResponseV2 treatmentById(@RequestBody Map paraMap) {
+        String registerId = (String) paraMap.get("registerId");
         System.out.println(registerId);
         try {
             registerDao.upDateRegisterStatus(registerId);
