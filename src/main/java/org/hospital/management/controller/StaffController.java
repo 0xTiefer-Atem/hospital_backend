@@ -51,8 +51,37 @@ public class StaffController {
     @RequestMapping(value = "/addStaff", method = RequestMethod.POST)
     @ResponseBody
     public ResponseV2 addStaff(@RequestBody Map paraMap) {
-        System.out.println(paraMap);
-        String staffInfo = (String) paraMap.get("staffInfo");
+        StaffPojo staffPojo = optRequestData(paraMap, "staffInfo");
+        System.out.println(staffPojo.toString());
+
+        try {
+            staffDao.addStaff(staffPojo);
+            return ResponseHelper.create(200, "新职员添加成功!");
+        }catch (Exception e) {
+            return ResponseHelper.create(500, "新职员添加失败!");
+        }
+    }
+
+
+    @RequestMapping(value = "/editStaff")
+    @ResponseBody
+    public ResponseV2 editStaff(@RequestBody Map paraMap) {
+        StaffPojo staffPojo = optRequestData(paraMap, "editStaff");
+        System.out.println(staffPojo.toString());
+        try {
+            staffDao.deleteStaffById(staffPojo.getStaffId());
+            staffDao.addStaff(staffPojo);
+            return ResponseHelper.create(200, "修改职员信息成功!");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return ResponseHelper.create(200, "修改职员信息失败!");
+        }
+    }
+
+
+    private StaffPojo optRequestData(Map paraMap, String type) {
+
+        String staffInfo = (String) paraMap.get(type);
         JSONObject jsonObject = JSON.parseObject(staffInfo);
 
         String staffId = jsonObject.getString("staffId");
@@ -72,11 +101,6 @@ public class StaffController {
         staffPojo.setStaffEntry(staffEntry);
         staffPojo.setCreateTime(createTime);
 
-        try {
-            staffDao.addStaff(staffPojo);
-            return ResponseHelper.create(200, "新职员添加成功!");
-        }catch (Exception e) {
-            return ResponseHelper.create(500, "新职员添加失败!");
-        }
+        return staffPojo;
     }
 }
