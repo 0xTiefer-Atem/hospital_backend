@@ -22,13 +22,17 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
+
+    //paraMap是可以存多对kv值的特殊变量
     public ResponseV2 login(@RequestBody Map paraMap) {
         String staffId = (String) paraMap.get("staffId");
+        //String name = stu.getName()
         String password = (String) paraMap.get("password");
         System.out.println(staffId);
-        LoginPojo loginPojo = loginDao.selectStaffId(staffId);
+        LoginPojo loginPojo = loginDao.selectStaffId(staffId);//调用函数并把结果赋值给loginPojo变量
         if(loginPojo != null && "123456".equals(password)){
-            return ResponseHelper.create(loginPojo, 200, "");
+            //ResponseHelper.create() 网上返回请求的模板，我自己照着打出来的
+            return ResponseHelper.create(loginPojo, 200, "");//封装登录响应
         }
         return ResponseHelper.create(500, "账户或密码错误！");
     }
