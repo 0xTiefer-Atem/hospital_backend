@@ -67,6 +67,7 @@ public class CaseController {
         casePojo.setCreateTime(createTime);
         try {
             caseDao.insertCaseInfo(casePojo);
+            caseDao.updateRegisterStatus(casePojo.getRegisterId());
             return ResponseHelper.create(200, "病例信息插入成功");
         }catch (Exception e) {
             System.out.println(e.getMessage());
