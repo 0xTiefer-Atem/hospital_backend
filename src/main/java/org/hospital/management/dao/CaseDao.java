@@ -32,4 +32,7 @@ public interface CaseDao {
             "values(#{caseId}, #{registerId}, #{userId}, #{userIllness}, " +
             "#{staffId}, #{medicList}, #{totalPrice}, #{createTime})")
     void insertCaseInfo(CasePojo casePojo);
+
+    @Select("select cI.medicMenusList from clinicInfo cI where #{staffId} like concat(cI.cliId,'%')")
+    String selectMedicMenusList(String staffId);
 }
