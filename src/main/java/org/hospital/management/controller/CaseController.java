@@ -1,6 +1,7 @@
 package org.hospital.management.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.hospital.management.dao.CaseDao;
 import org.hospital.management.pojo.CasePojo;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +36,12 @@ public class CaseController {
         System.out.println(staffId + "   " + startTime + "   " + endTime);
         try {
             List<TreatmentQueuePojo> caseQueueInfoList = caseDao.treatmentQueueInfoListInit(staffId, startTime, endTime);
-            return ResponseHelper.create(caseQueueInfoList, 200, "就诊排队列表信息查询成功!");
+            String medicMenuList = caseDao.selectMedicMenusList(staffId);
+            JSONArray medicMenuListArray = JSON.parseArray(medicMenuList);
+            Map<String, Object> map = new HashMap<>();
+            map.put("caseQueueInfoList",caseQueueInfoList);
+            map.put("medicMenuList",medicMenuListArray);
+            return ResponseHelper.create(map, 200, "就诊排队列表信息查询成功!");
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseHelper.create(500, "就诊排队列表信息查询失败!");
