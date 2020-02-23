@@ -3,6 +3,7 @@ package org.hospital.management.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.hospital.management.pojo.CasePojo;
 import org.hospital.management.pojo.TreatmentQueuePojo;
 
@@ -35,4 +36,8 @@ public interface CaseDao {
 
     @Select("select cI.medicMenusList from clinicInfo cI where #{staffId} like concat(cI.cliId,'%')")
     String selectMedicMenusList(String staffId);
+
+
+    @Update("update registerInfo set status = 'FINISH' where registerId = #{registerId}")
+    void updateRegisterStatus(String registerId);
 }
