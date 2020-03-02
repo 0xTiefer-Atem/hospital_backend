@@ -66,15 +66,22 @@ public class StaffController {
     @RequestMapping(value = "/editStaff")
     @ResponseBody
     public ResponseV2 editStaff(@RequestBody Map paraMap) {
+
+        //将json字符串转成java对象
         StaffPojo staffPojo = optRequestData(paraMap, "editStaff");
+
         System.out.println(staffPojo.toString());
+
         try {
+
+            //先删除再插入达到更新效果
             staffDao.deleteStaffById(staffPojo.getStaffId());
             staffDao.addStaff(staffPojo);
             return ResponseHelper.create(200, "修改职员信息成功!");
+
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return ResponseHelper.create(200, "修改职员信息失败!");
+            return ResponseHelper.create(500, "修改职员信息失败!");
         }
     }
 
@@ -82,6 +89,8 @@ public class StaffController {
     private StaffPojo optRequestData(Map paraMap, String type) {
 
         String staffInfo = (String) paraMap.get(type);
+
+
         JSONObject jsonObject = JSON.parseObject(staffInfo);
 
         String staffId = jsonObject.getString("staffId");
