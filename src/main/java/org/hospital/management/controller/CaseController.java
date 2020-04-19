@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.hospital.management.dao.CaseDao;
+import org.hospital.management.dao.RegisterDao;
 import org.hospital.management.pojo.CasePojo;
 import org.hospital.management.pojo.TreatmentQueuePojo;
 import org.hospital.management.util.GetUUID;
@@ -69,6 +70,7 @@ public class CaseController {
         try {
             caseDao.insertCaseInfo(casePojo);
             caseDao.updateRegisterStatus(casePojo.getRegisterId());
+            caseDao.updateAppointmentStatus(casePojo.getRegisterId());
             return ResponseHelper.create(200, "病例信息插入成功");
         }catch (Exception e) {
             System.out.println(e.getMessage());
