@@ -40,4 +40,9 @@ public interface CaseDao {
 
     @Update("update registerInfo set status = 'FINISH' where registerId = #{registerId}")
     void updateRegisterStatus(String registerId);
+
+    @Update("update appointmentInfo set status = 'FINISH'" +
+            " where appointmentId = (select appointmentId" +
+            " from registerInfo where registerId = #{registerId})")
+    void updateAppointmentStatus(String registerId);
 }
