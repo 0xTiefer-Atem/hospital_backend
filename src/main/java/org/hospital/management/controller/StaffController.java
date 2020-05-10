@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/home/staff")
+@RequestMapping(value = "/api/home/staff")
 @CrossOrigin
 public class StaffController {
 
