@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/home/queue")
+@RequestMapping(value = "/api/home/queue")
 @CrossOrigin
 public class RegisterController {
     @Resource
