@@ -14,7 +14,7 @@ import java.util.Map;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value = "/home")
+@RequestMapping(value = "/api/home")
 public class LoginController {
 
     @Resource
