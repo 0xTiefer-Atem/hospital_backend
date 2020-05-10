@@ -21,11 +21,12 @@ public interface AppointmentDao {
             "staffInfo sI," +
             "clinicInfo cI" +
             " where ap.userId = uI.userId" +
+            " and ap.staffId = #{id}" +
             " and ap.staffId = sI.staffId" +
             " and ap.staffId like concat(cI.cliId,'%')" +
             " and ap.appointmentTime between #{startTime} and #{endTime}"+
-            " and ap.status = 'WAIT'")
-    List<AppointmentPojo> appointmentListInit(String startTime, String endTime);
+            " and ap.status = 'WAIT' order by ap.appointmentTime asc")
+    List<AppointmentPojo> appointmentListInit(String id, String startTime, String endTime);
 
 
     @Select("select distinct ap.appointmentId," +
