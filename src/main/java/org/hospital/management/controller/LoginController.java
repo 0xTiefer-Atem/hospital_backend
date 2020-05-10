@@ -32,7 +32,7 @@ public class LoginController {
         System.out.println(staffId);
         try {
             LoginPojo loginPojo = loginDao.selectStaffId(staffId);//调用函数并把结果赋值给loginPojo变量
-            if(loginPojo != null && "123456".equals(password)){
+            if(loginPojo != null && loginPojo.getPassword().equals(password)){
                 //ResponseHelper.create() 网上返回请求的模板，我自己照着打出来的
                 return ResponseHelper.create(loginPojo, 200, "");//封装登录响应
             } else {
