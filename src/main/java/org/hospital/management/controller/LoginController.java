@@ -27,7 +27,6 @@ public class LoginController {
     //paraMap是可以存多对kv值的特殊变量
     public ResponseV2 login(@RequestBody Map paraMap) {
         String staffId = (String) paraMap.get("staffId");
-        //String name = stu.getName()
         String password = (String) paraMap.get("password");
         System.out.println(staffId);
         try {
