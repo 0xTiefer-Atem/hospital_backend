@@ -7,6 +7,6 @@ import org.hospital.management.pojo.LoginPojo;
 
 @Mapper
 public interface LoginDao {
-    @Select("select staffId from staffInfo where staffId = #{staffId}")
+    @Select("select staffId, password from staffInfo where staffId = #{staffId}")
     LoginPojo selectStaffId(String staffId);//定义方法
 }
