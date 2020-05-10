@@ -22,13 +22,14 @@ public class AppointmentController {
     AppointmentDao appointmentDao;
 
 
-    @RequestMapping(value = "/appointmentListInit", method = RequestMethod.GET)
+    @RequestMapping(value = "/appointmentListInit", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 appointmentListInit() {
+    public ResponseV2 appointmentListInit(@RequestBody Map paraMap) {
+        String staffId = (String) paraMap.get("staffId");
         String startTime = TimeOpt.getCurrentTime().split(" ")[0];
         String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
         try {
-            List<AppointmentPojo> appointmentList = appointmentDao.appointmentListInit(startTime, endTime);
+            List<AppointmentPojo> appointmentList = appointmentDao.appointmentListInit(staffId, startTime, endTime);
             return ResponseHelper.create(appointmentList, 200, "预约队列查询成功!");
         }catch (Exception e){
             e.printStackTrace();
