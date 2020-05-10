@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 public class StaffPojo {
     private String staffId;
+    private String password;
     private String staffName;
     private String staffSex;
     private String staffPos;
