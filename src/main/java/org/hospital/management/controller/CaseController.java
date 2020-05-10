@@ -23,7 +23,7 @@ import java.util.Map;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value = "/home/case")
+@RequestMapping(value = "/api/home/case")
 public class CaseController {
 
     @Resource
