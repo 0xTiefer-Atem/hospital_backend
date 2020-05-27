@@ -53,14 +53,16 @@ public class StaffController {
     @ResponseBody
     public ResponseV2 addStaff(@RequestBody Map paraMap) {
         StaffPojo staffPojo = optRequestData(paraMap, "staffInfo");
+        staffPojo.setPassword("123456");
         System.out.println(staffPojo.toString());
 
         try {
             staffDao.addStaff(staffPojo);
-            return ResponseHelper.create(200, "新职员添加成功!");
         }catch (Exception e) {
+            e.printStackTrace();
             return ResponseHelper.create(500, "新职员添加失败!");
         }
+        return ResponseHelper.create(200, "新职员添加成功!");
     }
 
 
