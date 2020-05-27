@@ -16,8 +16,8 @@ public interface StaffDao {
     @Delete("delete from staffInfo where staffId = #{ID}")
     void deleteStaffById(String id);
 
-    @Insert("insert into staffInfo (staffId, staffName, staffSex, staffTel, " +
-            "staffPos, staffEntry, createTime) values(#{staffId}, " +
+    @Insert("insert into staffInfo(staffId, password, staffName, staffSex, staffTel, " +
+            "staffPos, staffEntry, createTime) values(#{staffId}, #{password}, " +
             "#{staffName}, #{staffSex}, #{staffTel}, #{staffPos}, " +
             "#{staffEntry}, #{createTime})")
     void addStaff(StaffPojo staffPojo);
