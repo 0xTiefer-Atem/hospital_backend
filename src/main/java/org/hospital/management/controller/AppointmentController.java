@@ -31,7 +31,7 @@ public class AppointmentController {
         try {
             List<AppointmentPojo> appointmentList = appointmentDao.appointmentListInit(staffId, startTime, endTime);
             return ResponseHelper.create(appointmentList, 200, "预约队列查询成功!");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseHelper.create(500, "预约队列查询失败!");
 
