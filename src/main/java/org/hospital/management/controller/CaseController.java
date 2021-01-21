@@ -41,10 +41,10 @@ public class CaseController {
             String medicMenuList = caseDao.selectMedicMenusList(staffId);
             JSONArray medicMenuListArray = JSON.parseArray(medicMenuList);
             Map<String, Object> map = new HashMap<>();
-            map.put("caseQueueInfoList",caseQueueInfoList);
-            map.put("medicMenuList",medicMenuListArray);
+            map.put("caseQueueInfoList", caseQueueInfoList);
+            map.put("medicMenuList", medicMenuListArray);
             return ResponseHelper.create(map, 200, "就诊排队列表信息查询成功!");
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseHelper.create(500, "就诊排队列表信息查询失败!");
         }
@@ -72,7 +72,7 @@ public class CaseController {
             caseDao.updateRegisterStatus(casePojo.getRegisterId());
             caseDao.updateAppointmentStatus(casePojo.getRegisterId());
             return ResponseHelper.create(200, "病例信息插入成功");
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseHelper.create(500, "病例信息插入失败");
         }
