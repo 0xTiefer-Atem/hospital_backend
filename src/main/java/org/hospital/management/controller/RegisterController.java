@@ -26,7 +26,7 @@ public class RegisterController {
     //预约->挂号处理
     @RequestMapping(value = "/registerById", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 registerById(@RequestBody Map paraMap){
+    public ResponseV2 registerById(@RequestBody Map paraMap) {
         System.out.println(paraMap);
         String appointmentId = (String) paraMap.get("appointmentId");
         String staffId = (String) paraMap.get("staffId");
@@ -39,32 +39,31 @@ public class RegisterController {
         registerPojo.setCreateTime(TimeOpt.getCurrentTime());
         System.out.println(registerPojo.toString());
 
-        try{
+        try {
             registerDao.insertRegister(registerPojo);
             registerDao.upDateAppointmentStatus(registerPojo.getAppointmentId());
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return ResponseHelper.create(500, "挂号操作失败");
         }
-        return ResponseHelper.create(200,"挂号操作成功");
+        return ResponseHelper.create(200, "挂号操作成功");
     }
-
 
 
     //初始化挂号队列
     @RequestMapping(value = "/registerListInit", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseV2 registerListInit(@RequestBody Map paraMap){
+    public ResponseV2 registerListInit(@RequestBody Map paraMap) {
         String staffId = (String) paraMap.get("staffId");
         String startTime = TimeOpt.getCurrentTime().split(" ")[0];
         String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
         System.out.println(staffId + "   " + startTime + "   " + endTime);
         try {
             List<RegisterPojo> registerPojoList = registerDao.registerListInit(staffId, startTime, endTime);
-            return ResponseHelper.create(registerPojoList,200,"挂号队列初始化查询成功");
-        }catch (Exception e){
+            return ResponseHelper.create(registerPojoList, 200, "挂号队列初始化查询成功");
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseHelper.create(500,"挂号队列初始化查询失败");
+            return ResponseHelper.create(500, "挂号队列初始化查询失败");
         }
     }
 
@@ -76,10 +75,10 @@ public class RegisterController {
         System.out.println(registerId);
         try {
             registerDao.upDateRegisterStatus(registerId);
-            return ResponseHelper.create(200,"就诊排队成功");
-        }catch (Exception e) {
+            return ResponseHelper.create(200, "就诊排队成功");
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseHelper.create(500,"就诊排队失败");
+            return ResponseHelper.create(500, "就诊排队失败");
         }
     }
 
