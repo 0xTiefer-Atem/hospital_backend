@@ -30,7 +30,7 @@ public class StaffController {
         try {
             List<StaffPojo> staffPojoList = staffDao.staffListInit();
             return ResponseHelper.create(staffPojoList, 200, "职员信息队列初始化成功!");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseHelper.create(500, "职员信息队列初始化失败!");
         }
     }
@@ -42,7 +42,7 @@ public class StaffController {
         try {
             staffDao.deleteStaffById(staffId);
             return ResponseHelper.create(200, "职员删除成功!");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseHelper.create(500, "职员删除失败!");
         }
@@ -58,7 +58,7 @@ public class StaffController {
 
         try {
             staffDao.addStaff(staffPojo);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseHelper.create(500, "新职员添加失败!");
         }
@@ -82,7 +82,7 @@ public class StaffController {
             staffDao.addStaff(staffPojo);
             return ResponseHelper.create(200, "修改职员信息成功!");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return ResponseHelper.create(500, "修改职员信息失败!");
         }
