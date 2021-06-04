@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hospital.management.mapper.CaseMapper">
+
+<!--    <resultMap id="BaseResultMap" type="generator.domain.Caseinfo">-->
+<!--            <id property="id" column="id" jdbcType="INTEGER"/>-->
+<!--            <result property="caseid" column="caseId" jdbcType="VARCHAR"/>-->
+<!--            <result property="registerid" column="registerId" jdbcType="VARCHAR"/>-->
+<!--            <result property="userid" column="userId" jdbcType="VARCHAR"/>-->
+<!--            <result property="staffid" column="staffId" jdbcType="VARCHAR"/>-->
+<!--            <result property="userillness" column="userIllness" jdbcType="VARCHAR"/>-->
+<!--            <result property="mediclist" column="medicList" jdbcType="VARCHAR"/>-->
+<!--            <result property="totalprice" column="totalPrice" jdbcType="DECIMAL"/>-->
+<!--            <result property="paystatus" column="payStatus" jdbcType="VARCHAR"/>-->
+<!--            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>-->
+<!--    </resultMap>-->
+
+    <sql id="Base_Column_List">
+        id,caseId,registerId,
+        userId,staffId,userIllness,
+        medicList,totalPrice,payStatus,
+        createTime
+    </sql>
+</mapper>

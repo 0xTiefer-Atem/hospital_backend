@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hospital.management.mapper.RegisterMapper">
+
+<!--    <resultMap id="BaseResultMap" type="generator.domain.Registerinfo">-->
+<!--            <id property="id" column="id" jdbcType="INTEGER"/>-->
+<!--            <result property="registerid" column="registerId" jdbcType="VARCHAR"/>-->
+<!--            <result property="appointmentid" column="appointmentId" jdbcType="VARCHAR"/>-->
+<!--            <result property="staffid" column="staffId" jdbcType="VARCHAR"/>-->
+<!--            <result property="userid" column="userId" jdbcType="VARCHAR"/>-->
+<!--            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>-->
+<!--            <result property="status" column="status" jdbcType="VARCHAR"/>-->
+<!--    </resultMap>-->
+
+    <sql id="Base_Column_List">
+        id,registerId,appointmentId,
+        staffId,userId,createTime,
+        status
+    </sql>
+</mapper>

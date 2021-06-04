@@ -1,11 +1,10 @@
 package org.hospital.management.controller;
 
 
-import org.hospital.management.dao.LoginDao;
+import org.hospital.management.mapper.StaffMapper;
 import org.hospital.management.pojo.LoginPojo;
 import org.hospital.management.util.ResponseHelper;
 import org.hospital.management.util.ResponseV2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 public class LoginController {
 
     @Resource
-    LoginDao loginDao;
+    private StaffMapper staffMapper;
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -30,7 +29,7 @@ public class LoginController {
         String password = (String) paraMap.get("password");
         System.out.println(staffId);
         try {
-            LoginPojo loginPojo = loginDao.selectStaffId(staffId);//调用函数并把结果赋值给loginPojo变量
+            LoginPojo loginPojo = staffMapper.selectStaffId(staffId);//调用函数并把结果赋值给loginPojo变量
             if (loginPojo != null && loginPojo.getPassword().equals(password)) {
                 //ResponseHelper.create() 网上返回请求的模板，我自己照着打出来的
                 return ResponseHelper.create(loginPojo, 200, "");//封装登录响应

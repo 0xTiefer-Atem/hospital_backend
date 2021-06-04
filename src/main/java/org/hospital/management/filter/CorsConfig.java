@@ -1,13 +1,8 @@
-package org.hospital.management.Filter;
+package org.hospital.management.filter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {

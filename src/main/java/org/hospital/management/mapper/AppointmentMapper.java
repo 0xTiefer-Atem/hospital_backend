@@ -1,14 +1,14 @@
-package org.hospital.management.dao;
+package org.hospital.management.mapper;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.hospital.management.pojo.AppointmentPojo;
 
 import java.util.List;
 
 @Mapper
-public interface AppointmentDao {
+public interface AppointmentMapper {
     @Select("select distinct ap.appointmentId," +
             "ap.userId," +
             "uI.userName," +
@@ -24,9 +24,9 @@ public interface AppointmentDao {
             " and ap.staffId = #{id}" +
             " and ap.staffId = sI.staffId" +
             " and ap.staffId like concat(cI.cliId,'%')" +
-            " and ap.appointmentTime between #{startTime} and #{endTime}"+
+            " and ap.appointmentTime between #{startTime} and #{endTime}" +
             " and ap.status = 'WAIT' order by ap.appointmentTime asc")
-    List<AppointmentPojo> appointmentListInit(String id, String startTime, String endTime);
+    List<AppointmentPojo> appointmentListInit(@Param("id") String id, @Param("startTime") String startTime, @Param("endTime") String endTime);
 
 
     @Select("select distinct ap.appointmentId," +

@@ -1,15 +1,16 @@
-package org.hospital.management.dao;
+package org.hospital.management.mapper;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.hospital.management.pojo.LoginPojo;
 import org.hospital.management.pojo.StaffPojo;
 
 import java.util.List;
 
 @Mapper
-public interface StaffDao {
+public interface StaffMapper {
     @Select("select * from staffInfo")
     List<StaffPojo> staffListInit();
 
@@ -21,4 +22,8 @@ public interface StaffDao {
             "#{staffName}, #{staffSex}, #{staffTel}, #{staffPos}, " +
             "#{staffEntry}, #{createTime})")
     void addStaff(StaffPojo staffPojo);
+
+
+    @Select("select staffId, password from staffInfo where staffId = #{staffId}")
+    LoginPojo selectStaffId(String staffId);//定义方法
 }

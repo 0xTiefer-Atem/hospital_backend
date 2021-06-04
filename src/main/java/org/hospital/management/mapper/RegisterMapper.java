@@ -1,4 +1,4 @@
-package org.hospital.management.dao;
+package org.hospital.management.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -9,7 +9,7 @@ import org.hospital.management.pojo.RegisterPojo;
 import java.util.List;
 
 @Mapper
-public interface RegisterDao {
+public interface RegisterMapper {
     @Insert("insert into registerInfo(registerId, appointmentId, staffId, " +
             "userId, createTime) values(#{registerId}, #{appointmentId}," +
             "#{staffId}, #{userId}, #{createTime})")

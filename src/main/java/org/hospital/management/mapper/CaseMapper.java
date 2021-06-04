@@ -1,4 +1,4 @@
-package org.hospital.management.dao;
+package org.hospital.management.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,7 +10,7 @@ import org.hospital.management.pojo.TreatmentQueuePojo;
 import java.util.List;
 
 @Mapper
-public interface CaseDao {
+public interface CaseMapper {
 
     //从挂号表中选出状态为SUCCESS的 staffId 的就诊信息列表
     @Select("select distinct  rI.registerId, rI.userId, uI.userName," +

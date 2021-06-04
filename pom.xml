@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.hospital</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>hospital_backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>management</name>
     <repositories>

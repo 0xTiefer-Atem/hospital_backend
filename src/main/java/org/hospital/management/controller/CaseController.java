@@ -3,20 +3,17 @@ package org.hospital.management.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.hospital.management.dao.CaseDao;
-import org.hospital.management.dao.RegisterDao;
+import org.hospital.management.mapper.CaseMapper;
 import org.hospital.management.pojo.CasePojo;
 import org.hospital.management.pojo.TreatmentQueuePojo;
 import org.hospital.management.util.GetUUID;
 import org.hospital.management.util.ResponseHelper;
 import org.hospital.management.util.ResponseV2;
 import org.hospital.management.util.TimeOpt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +24,7 @@ import java.util.Map;
 public class CaseController {
 
     @Resource
-    CaseDao caseDao;
+    private CaseMapper caseMapper;
 
     @RequestMapping(value = "/treatmentQueueInfoListInit", method = RequestMethod.POST)
     @ResponseBody
@@ -37,8 +34,8 @@ public class CaseController {
         String endTime = TimeOpt.getFetureDate(1).split(" ")[0];
         System.out.println(staffId + "   " + startTime + "   " + endTime);
         try {
-            List<TreatmentQueuePojo> caseQueueInfoList = caseDao.treatmentQueueInfoListInit(staffId, startTime, endTime);
-            String medicMenuList = caseDao.selectMedicMenusList(staffId);
+            List<TreatmentQueuePojo> caseQueueInfoList = caseMapper.treatmentQueueInfoListInit(staffId, startTime, endTime);
+            String medicMenuList = caseMapper.selectMedicMenusList(staffId);
             JSONArray medicMenuListArray = JSON.parseArray(medicMenuList);
             Map<String, Object> map = new HashMap<>();
             map.put("caseQueueInfoList", caseQueueInfoList);
@@ -68,9 +65,9 @@ public class CaseController {
         casePojo.setTotalPrice(jsonObject.getDouble("totalPrice"));
         casePojo.setCreateTime(createTime);
         try {
-            caseDao.insertCaseInfo(casePojo);
-            caseDao.updateRegisterStatus(casePojo.getRegisterId());
-            caseDao.updateAppointmentStatus(casePojo.getRegisterId());
+            caseMapper.insertCaseInfo(casePojo);
+            caseMapper.updateRegisterStatus(casePojo.getRegisterId());
+            caseMapper.updateAppointmentStatus(casePojo.getRegisterId());
             return ResponseHelper.create(200, "病例信息插入成功");
         } catch (Exception e) {
             System.out.println(e.getMessage());
