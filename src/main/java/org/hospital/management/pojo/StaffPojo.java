@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,5 +19,8 @@ public class StaffPojo {
     private String staffPos;
     private String staffTel;
     private String staffEntry;
-    private String createTime;
+    private Date createTime;
+    private String staffCover;
+    private String describe;
+
 }

@@ -12,10 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping(value = "/api/home/staff")
 @CrossOrigin
 public class StaffController {
@@ -24,7 +25,6 @@ public class StaffController {
     private StaffMapper staffMapper;
 
     @RequestMapping(value = "/staffListInit", method = RequestMethod.GET)
-    @ResponseBody
     public ResponseV2 staffListInit() {
         try {
             List<StaffPojo> staffPojoList = staffMapper.staffListInit();
@@ -35,7 +35,6 @@ public class StaffController {
     }
 
     @RequestMapping(value = "/deleteStaffById", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseV2 deleteStaffById(@RequestBody Map paraMap) {
         String staffId = (String) paraMap.get("staffId");
         try {
@@ -49,12 +48,10 @@ public class StaffController {
 
 
     @RequestMapping(value = "/addStaff", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseV2 addStaff(@RequestBody Map paraMap) {
         StaffPojo staffPojo = optRequestData(paraMap, "staffInfo");
         staffPojo.setPassword("123456");
         System.out.println(staffPojo.toString());
-
         try {
             staffMapper.addStaff(staffPojo);
         } catch (Exception e) {
@@ -97,20 +94,25 @@ public class StaffController {
 
         String staffId = jsonObject.getString("staffId");
         String staffName = jsonObject.getString("staffName");
+        String password = jsonObject.getString("password");
         String staffSex = jsonObject.getString("staffSex");
         String staffPos = jsonObject.getString("staffPos");
         String staffTel = jsonObject.getString("staffTel");
         String staffEntry = jsonObject.getString("staffEntry");
-        String createTime = TimeOpt.getCurrentTime().split(" ")[0];
+        String describe = jsonObject.getString("describe");
+        String staffCover = "http://47.107.64.157/blog/20210606/35341622967770291.jpg";
 
         StaffPojo staffPojo = new StaffPojo();
         staffPojo.setStaffId(staffId);
         staffPojo.setStaffName(staffName);
         staffPojo.setStaffSex(staffSex);
+        staffPojo.setPassword(password);
         staffPojo.setStaffPos(staffPos);
         staffPojo.setStaffTel(staffTel);
         staffPojo.setStaffEntry(staffEntry);
-        staffPojo.setCreateTime(createTime);
+        staffPojo.setDescribe(describe);
+        staffPojo.setStaffCover(staffCover);
+        staffPojo.setCreateTime(new Date());
 
         return staffPojo;
     }

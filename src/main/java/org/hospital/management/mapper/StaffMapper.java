@@ -18,9 +18,9 @@ public interface StaffMapper {
     void deleteStaffById(String id);
 
     @Insert("insert into staffInfo(staffId, password, staffName, staffSex, staffTel, " +
-            "staffPos, staffEntry, createTime) values(#{staffId}, #{password}, " +
+            "staffPos, staffEntry, createTime, staffCover, `describe`) values(#{staffId}, #{password}, " +
             "#{staffName}, #{staffSex}, #{staffTel}, #{staffPos}, " +
-            "#{staffEntry}, #{createTime})")
+            "#{staffEntry}, #{createTime}, #{staffCover}, #{describe})")
     void addStaff(StaffPojo staffPojo);
 
 
