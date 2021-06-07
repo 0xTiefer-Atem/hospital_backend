@@ -3,6 +3,9 @@ package org.hospital.management.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.hospital.management.entity.CaseInfo;
 import org.hospital.management.mapper.CaseMapper;
 import org.hospital.management.pojo.CasePojo;
 import org.hospital.management.pojo.TreatmentQueuePojo;
@@ -18,16 +21,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Api(tags = "病例相关接口")
 @CrossOrigin
-@Controller
+@RestController
 @RequestMapping(value = "/api/home/case")
 public class CaseController {
 
     @Resource
     private CaseMapper caseMapper;
 
+
     @RequestMapping(value = "/treatmentQueueInfoListInit", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseV2 treatmentQueueInfoListInit(@RequestBody Map paraMap) {
         String staffId = (String) paraMap.get("staffId");
         String startTime = TimeOpt.getCurrentTime().split(" ")[0];
@@ -48,7 +52,6 @@ public class CaseController {
     }
 
     @RequestMapping(value = "/insertCaseInfo", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseV2 insertCaseInfo(@RequestBody Map paraMap) {
         String caseData = (String) paraMap.get("caseData");
         JSONObject jsonObject = JSON.parseObject(caseData);
@@ -73,5 +76,17 @@ public class CaseController {
             System.out.println(e.getMessage());
             return ResponseHelper.create(500, "病例信息插入失败");
         }
+    }
+
+
+    @ApiOperation("查询病例反馈")
+    @GetMapping(value = "/case/history")
+    public ResponseV2 getIllnessHistory(@RequestParam("staffId") String staffId) {
+        List<CaseInfo> caseInfoList = caseMapper.getIllnessHistoryById(staffId);
+        for (CaseInfo caseInfo : caseInfoList) {
+            caseInfo.setMedicListJson(JSONArray.parseArray(caseInfo.getMedicList()));
+            caseInfo.setMedicList("");
+        }
+        return ResponseHelper.create(caseInfoList, 200, "历史病例查询成功!");
     }
 }
