@@ -80,7 +80,7 @@ public class CaseController {
 
 
     @ApiOperation("查询病例反馈")
-    @GetMapping(value = "/case/history")
+    @GetMapping(value = "/history")
     public ResponseV2 getIllnessHistory(@RequestParam("staffId") String staffId) {
         List<CaseInfo> caseInfoList = caseMapper.getIllnessHistoryById(staffId);
         for (CaseInfo caseInfo : caseInfoList) {
